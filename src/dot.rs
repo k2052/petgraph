@@ -145,14 +145,13 @@ impl<'a, G> fmt::Display for Dot<'a, G>
 }
 
 impl<'a, G> fmt::Debug for Dot<'a, G>
-    where G: IntoEdgeReferences + IntoNodeReferences + NodeIndexable + GraphProp,
-          G::EdgeWeight: fmt::Debug,
-          G::NodeWeight: fmt::Debug,
+where
+    G: IntoEdgeReferences + IntoNodeReferences + NodeIndexable + GraphProp,
+    G::EdgeWeight: fmt::Debug,
+    G::NodeWeight: fmt::Debug,
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        self.graph_fmt(self.graph, f,
-                       |n, cb| cb(&DebugFmt(n)),
-                       |e, cb| cb(&DebugFmt(e)))
+        self.graph_fmt(f, fmt::Debug::fmt, fmt::Debug::fmt)
     }
 }
 
